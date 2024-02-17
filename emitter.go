@@ -1,5 +1,7 @@
 package acres
 
+import "errors"
+
 type Emitter struct{}
 
 func NewEmitter() Emitter {
@@ -45,20 +47,17 @@ func (g Emitter) Failure(err ...error) Result {
 	return g.Code(FAILURE, err...)
 }
 
-func (g Emitter) From(code interface {
-	Error() string
-	Code() Code
-}) Result {
-	return g.Code(Code(code.Code()), code)
+func (g Emitter) Err(code ErrorCode) Result {
+	return g.Code(Code(code.Int()), errors.New(code.String()))
 }
 
-func (g Emitter) FromErr(err error, successResult ...Result) Result {
-	return g.FromBool(err == nil, successResult...)
+func (g Emitter) FromErr(err error, result ...Result) Result {
+	return g.FromBool(err == nil, result...)
 }
 
-func (g Emitter) FromBool(success bool, successResult ...Result) Result {
+func (g Emitter) FromBool(success bool, result ...Result) Result {
 	if success {
-		if a := successResult; len(a) > 0 {
+		if a := result; len(a) > 0 {
 			return a[0]
 		}
 		return g.Done()
