@@ -10,7 +10,7 @@ type Action struct {
     Result acres.Emitter
 }
 
-func (a Action) Go() acres.Result{
+func (a Action) DoSomeAction() acres.Result{
     return a.Result.Done()
 }
 ```
@@ -18,7 +18,7 @@ func (a Action) Go() acres.Result{
 ## Result checks
 
 ```
-func DoAction(a Action){
+func (a Action)DoAnotherAction() acres.Result{
     if r := a.Go(); r.Failure(){
         return r
     }
