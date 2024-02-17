@@ -57,7 +57,7 @@ var _ acres.ErrorCode = minorFailure
 And later
 
 ```
-func (a Action) FailyMethod() acres.Result{
+func (a Action) FallaciousMethod() acres.Result{
     return a.Result.Err(criticalFailure)
 }
 ```
