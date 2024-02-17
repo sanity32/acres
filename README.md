@@ -56,5 +56,4 @@ And later
 func (a Action) FailyMethod() acres.Result{
     return a.Result.Err(criticalFailure)
 }
-``
 ```
