@@ -21,3 +21,8 @@ func TestResult(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestResult2(t *testing.T) {
+	r := NewEmitter().Done()
+	t.Logf("%v", r)
+}

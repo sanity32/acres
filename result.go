@@ -10,6 +10,17 @@ type Result struct {
 	Data any
 }
 
+func (r Result) String() string {
+	s := fmt.Sprintf("RESULT %v", r.Code)
+	if err := r.Err; err != nil {
+		s += fmt.Sprintf(`[%v]`, err.Error())
+	}
+	if d := r.Data; d != nil {
+		s += fmt.Sprintf("(data:%#v)", d)
+	}
+	return s
+}
+
 func (r Result) Print(v ...any) Result {
 	if !DefaultOutputSettings.Muted {
 		a := append([]any{"Result code:", r.Code}, v...)
